@@ -1,0 +1,36 @@
+.pokemon-card {
+  width: 30%;
+  padding: 20px;
+  margin: 20px;
+
+  background-color: rgba(125, 221, 238, 0.5);
+  border-radius: 4px;
+  text-align: center;
+
+  &__view {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__name {
+    font-size: 20px;
+  }
+}
+
+.MuiTooltip-popper  {
+  width: 200px;
+}
+
+.MuiTooltip-tooltip.MuiTooltip-tooltipArrow {
+  color: rgb(255, 255, 255);
+  padding: 10px;
+  font-size: 18px;
+  line-height: 1.3;
+  border-radius: 5px;
+  background-color: #918b8b;
+
+  .MuiTooltip-arrow::before{
+    background-color: #918b8b;
+  }
+}
+
