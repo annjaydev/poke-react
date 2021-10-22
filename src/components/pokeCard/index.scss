@@ -2,7 +2,7 @@ $tooltip-color: #918b8b;
 
 .pokemon-card {
   width: 30%;
-  padding: 20px;
+  padding: 5px;
   margin: 20px 5px;
 
   background-color: rgba(125, 221, 238, 0.8);
@@ -21,10 +21,6 @@ $tooltip-color: #918b8b;
   &__name {
     font-size: 20px;
   }
-}
-
-.MuiTooltip-popper  {
-
 }
 
 .MuiTooltip-tooltip.MuiTooltip-tooltipArrow {

@@ -3,13 +3,14 @@ import { Tooltip } from '@material-ui/core';
 import { PokeInfo } from '../pokeInfo/PokeInfo';
 import './index.scss';
 
-export const PokeCard = ({ pokeInfo }) => {
+export const PokeCard = ({ pokeInfo, showDetails }) => {
   return (
     <Tooltip
       className='pokemon__info'
       title={<PokeInfo pokeInfo={pokeInfo} />}
       placement='right'
       arrow
+      onClick={() => showDetails(pokeInfo)}
     >
       <div className='pokemon-card'>
         <div className='pokemon-card__view'>
