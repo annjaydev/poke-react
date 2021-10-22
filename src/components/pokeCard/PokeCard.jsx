@@ -3,11 +3,11 @@ import { Tooltip } from '@material-ui/core';
 import { PokeInfo } from '../pokeInfo/PokeInfo';
 import './index.scss';
 
-export const PokeCard = ({ srcFront, srcBack, name }) => {
+export const PokeCard = ({ pokeInfo }) => {
   return (
     <Tooltip
       className='pokemon__info'
-      title={<PokeInfo text='Скоро здесь будет больше информации' />}
+      title={<PokeInfo pokeInfo={pokeInfo} />}
       placement='right'
       arrow
     >
@@ -15,17 +15,17 @@ export const PokeCard = ({ srcFront, srcBack, name }) => {
         <div className='pokemon-card__view'>
           <img
             className='pokemon__img'
-            src={srcFront}
+            src={pokeInfo.sprites.front_default}
             alt='pokemon front view'
           />
           <img
             className='pokemon__img'
-            src={srcBack}
+            src={pokeInfo.sprites.back_default}
             alt='pokemon back view'
           />
         </div>
         <p className='pokemon-card__name'>
-          {name}
+          {pokeInfo.name.toUpperCase()}
         </p>
       </div>
     </Tooltip>

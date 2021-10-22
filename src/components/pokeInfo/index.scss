@@ -1,0 +1,13 @@
+$main-color: #ff7f50;
+
+.pokemon__stat {
+  padding: 5px 0;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid $main-color;
+  }
+
+  &--bold {
+    color: $main-color;
+  }
+}

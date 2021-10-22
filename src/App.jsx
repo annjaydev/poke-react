@@ -4,52 +4,65 @@ import axios from 'axios';
 
 export const App = () => {
 
+  const [pokemons, setPokemons] = useState([]);
+  const [randomPokemon, setRandomPokemon] = useState(null);
   const pokeNumber = 898;
-  const pokeNumberShow = 12;
+  const pokeNumberShow = 6;
 
-  const generatePokemonsId = () => {
+  const generatePokemonsId = (num) => {
     const pokemonsId = [];
-    for (let i = 1; i <= pokeNumberShow; i++) {
+    for (let i = 1; i <= num; i++) {
       pokemonsId.push(Math.floor(Math.random() * pokeNumber) + 1);
     }
 
     return pokemonsId;
   }
 
-  const [pokemons, setPokemons] = useState([
-    // { id: 1, srcFront: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png', srcBack: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png', name: 'Pluto' },
-    // { id: 2, srcFront: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png', srcBack: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png', name: 'Pluto' },
-    // { id: 3, srcFront: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png', srcBack: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png', name: 'Pluto' },
-    // { id: 4, srcFront: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png', srcBack: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png', name: 'Pluto' },
-    // { id: 5, srcFront: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png', srcBack: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png', name: 'Pluto' },
-    // { id: 6, srcFront: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png', srcBack: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png', name: 'Pluto' },
-    // { id: 7, srcFront: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png', srcBack: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png', name: 'Pluto' },
-    // { id: 8, srcFront: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png', srcBack: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png', name: 'Pluto' },
-    // { id: 9, srcFront: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png', srcBack: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png', name: 'Pluto' },
-    // { id: 10, srcFront: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png', srcBack: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png', name: 'Pluto' },
-  ]);
-
   useEffect(() => {
-    const ids = generatePokemonsId();
-    
+    const ids = generatePokemonsId(pokeNumberShow);
+    setPokemons([]);
+
     ids.forEach(id => {
       axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
         .then(res => setPokemons(pokemons => [...pokemons, res.data]));
     });
   }, []);
 
+  const generateFighter = () => {
+    const [id] = generatePokemonsId(1);
+
+    axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
+      .then(res => setRandomPokemon(res.data));
+  }
+
   return (
     <div className='app-container'>
+      <h1 className='title'>Choose your fighter</h1>
       <div className='app__pokemons'>
         {
           pokemons.map(pokemon => (
             <PokeCard
               key={pokemon.id}
-              srcFront={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
-              srcBack={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${pokemon.id}.png`}
-              name={pokemon.name}
+              pokeInfo={pokemon}
             />
           ))
+        }
+      </div>
+
+      <div className='app__random-pokemon'>
+        <button
+          className='btn'
+          onClick={ () => generateFighter() }
+        >
+          Show random fighter
+        </button>
+        {
+          randomPokemon && (
+            <PokeCard
+              key={randomPokemon.id}
+              pokeInfo={randomPokemon}
+            />
+          )
         }
       </div>
     </div>
